@@ -1,0 +1,88 @@
+# dotfiles
+
+macOS iTerm2 configuration — zsh, Starship prompt, Vim, and a set of CLI tools tuned for a fast, visual workflow.
+
+## Screenshots
+
+![Starship prompt with Gruvbox Dark theme](assets/prompt.png)
+
+![eza file listing with icons and git status](assets/eza.png)
+
+![fzf fuzzy finder with custom dark theme](assets/fzf.png)
+
+![Vim with Tomorrow-Night colorscheme](assets/vim.png)
+
+## Contents
+
+| File | Purpose |
+|------|---------|
+| `.zshrc` | Zsh config — aliases, fzf, zoxide, autosuggestions |
+| `starship.toml` | Starship prompt — Gruvbox Dark, segmented powerline style |
+| `.vim/vimrc` | Vim config — Tomorrow-Night theme, Pathogen, lightline |
+
+## Prompt — Starship
+
+Powerline-style segments using the **Gruvbox Dark** palette:
+
+```
+[ directory ][ git branch · status ][ language versions ][ docker/conda ][ time ]
+```
+
+- Directory truncated to 3 levels, common folders replaced with icons
+- Git branch with ahead/behind and status indicators
+- Language version shown only when a project file is detected (Node, Python, Rust, Go, etc.)
+- Time (`HH:MM`) in the rightmost segment
+- Success/error indicator on the prompt character; distinct Vim mode symbols
+
+## Shell — Zsh
+
+### Aliases
+
+| Alias | Command | Notes |
+|-------|---------|-------|
+| `ls` | `eza -1 --git --icons=always` | Icon listing with git flags |
+| `ll` | `eza -lah --git --icons=always` | Long listing |
+| `tls` | `eza -lah --git --icons=always --sort modified \| head` | Most-recently-modified files |
+| `bup` | `source ~/.zshrc` | Reload shell config |
+| `brup` | `brew update && brew upgrade --greedy && brew cleanup` | Full Homebrew update |
+| `zshpro` | `vi ~/gitrep/dotfiles/.zshrc` | Edit this config |
+| `ftcp` | `lsof -i -n -P \| grep TCP \| fzf` | Fuzzy-search open TCP connections |
+
+### fzf
+
+Dark theme matching the Starship palette. Key bindings:
+
+- `Ctrl+T` — fuzzy insert a file path; preview with `bat`
+- `Alt+C` — fuzzy `cd` into a directory; preview with `tree`
+- Driven by `fd` (respects `.gitignore`, includes hidden files, excludes `.git`)
+
+### Other tools
+
+- **zoxide** — smarter `cd` with frecency tracking, aliased as `cd`
+- **zsh-autosuggestions** — ghost-text history suggestions
+
+## Vim
+
+- **Theme** — Tomorrow-Night
+- **Plugins** — Pathogen (plugin loader), lightline (status bar)
+- **Tab size** — 2 spaces, expandtab
+- **Column guide** — 90 characters
+- Relative line numbers, syntax highlighting, smart indent
+
+## Prerequisites
+
+```sh
+brew install starship eza fzf fd zoxide bat tree
+brew install zsh-autosuggestions
+```
+
+Vim plugins are managed with Pathogen and included as submodules under `.vim/bundle/`.
+
+## Installation
+
+```sh
+git clone https://github.com/helbow/dotfiles.git ~/dotfiles
+ln -sf ~/dotfiles/.zshrc ~/.zshrc
+ln -sf ~/dotfiles/starship.toml ~/.config/starship.toml
+ln -sf ~/dotfiles/.vim ~/.vim
+```
