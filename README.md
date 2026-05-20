@@ -1,6 +1,6 @@
 # dotfiles
 
-macOS iTerm2 configuration — zsh, Starship prompt, Vim, and a set of CLI tools tuned for a fast, visual workflow.
+Personal macOS iTerm2 configuration — zsh, Starship prompt, Vim, and a set of CLI tools tuned for a fast, visual workflow. Adjust as needed.
 
 ## Contents
 
