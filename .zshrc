@@ -8,6 +8,7 @@ bindkey "^[[1;2C" forward-word       # shift+right
 
 alias bup="source ~/.zshrc"
 alias brup="brew update && brew upgrade --greedy && brew cleanup"
+alias ftcp="lsof -i -n -P | grep TCP | fzf"
 alias ls="eza -1 --git --icons=always"
 alias ll="eza -lah --git --icons=always"
 alias tls="eza -lah --git --icons=always --sort modified | head"
@@ -29,8 +30,6 @@ export FZF_CTRL_T_OPTS="--preview 'bat --color always {}'"
 
 export FZF_ALT_C_COMMAND="fd --type d . --color=never --hidden --exclude '.git'"
 export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
-
-alias ftcp="lsof -i -n -P | grep TCP | fzf"
 
 # set up brew env variables
 eval "$(/opt/homebrew/bin/brew shellenv)"
