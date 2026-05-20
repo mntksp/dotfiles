@@ -2,16 +2,6 @@
 
 macOS iTerm2 configuration — zsh, Starship prompt, Vim, and a set of CLI tools tuned for a fast, visual workflow.
 
-## Screenshots
-
-![Starship prompt with Gruvbox Dark theme](assets/prompt.png)
-
-![eza file listing with icons and git status](assets/eza.png)
-
-![fzf fuzzy finder with custom dark theme](assets/fzf.png)
-
-![Vim with Tomorrow-Night colorscheme](assets/vim.png)
-
 ## Contents
 
 | File | Purpose |
@@ -35,18 +25,6 @@ Powerline-style segments using the **Gruvbox Dark** palette:
 - Success/error indicator on the prompt character; distinct Vim mode symbols
 
 ## Shell — Zsh
-
-### Aliases
-
-| Alias | Command | Notes |
-|-------|---------|-------|
-| `ls` | `eza -1 --git --icons=always` | Icon listing with git flags |
-| `ll` | `eza -lah --git --icons=always` | Long listing |
-| `tls` | `eza -lah --git --icons=always --sort modified \| head` | Most-recently-modified files |
-| `bup` | `source ~/.zshrc` | Reload shell config |
-| `brup` | `brew update && brew upgrade --greedy && brew cleanup` | Full Homebrew update |
-| `zshpro` | `vi ~/gitrep/dotfiles/.zshrc` | Edit this config |
-| `ftcp` | `lsof -i -n -P \| grep TCP \| fzf` | Fuzzy-search open TCP connections |
 
 ### fzf
 
