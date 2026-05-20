@@ -63,4 +63,5 @@ git clone https://github.com/helbow/dotfiles.git ~/dotfiles
 ln -sf ~/dotfiles/.zshrc ~/.zshrc
 ln -sf ~/dotfiles/starship.toml ~/.config/starship.toml
 ln -sf ~/dotfiles/.vim ~/.vim
+ln -sf ~/dotfiles/.vim/vimrc ~/.vimrc
 ```
