@@ -25,13 +25,10 @@ cd ~/dotfiles
 | Source | Target |
 |--------|--------|
 | `.vim` | `~/.vim` |
-| `.vimrc` | `~/.vimrc` |
+| `.vim/vimrc` | `~/.vimrc` |
 | `.zshrc` | `~/.zshrc` |
 | `starship.toml` | `~/.config/starship.toml` |
 | `nvim` | `~/.config/nvim` |
-
-> [!NOTE]
-> The repo keeps the Vim config at `.vim/vimrc`, but `setup.sh` links `.vimrc` from the repo root. Link it manually if needed: `ln -sf ~/dotfiles/.vim/vimrc ~/.vimrc`
 
 ### Prerequisites
 
