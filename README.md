@@ -15,8 +15,8 @@ Personal macOS configuration: **zsh**, **Starship**, **Neovim** (lazy.nvim), and
 ## Installation
 
 ```sh
-git clone https://github.com/helbow/dotfiles.git ~/gitrep/dotfiles
-cd ~/gitrep/dotfiles
+git clone https://github.com/mntksp/dotfiles.git ~/dotfiles
+cd ~/dotfiles
 ./setup.sh
 ```
 
@@ -31,7 +31,7 @@ cd ~/gitrep/dotfiles
 | `nvim` | `~/.config/nvim` |
 
 > [!NOTE]
-> The repo keeps the Vim config at `.vim/vimrc`, but `setup.sh` links `.vimrc` from the repo root. Link it manually if needed: `ln -sf ~/gitrep/dotfiles/.vim/vimrc ~/.vimrc`
+> The repo keeps the Vim config at `.vim/vimrc`, but `setup.sh` links `.vimrc` from the repo root. Link it manually if needed: `ln -sf ~/dotfiles/.vim/vimrc ~/.vimrc`
 
 ### Prerequisites
 
