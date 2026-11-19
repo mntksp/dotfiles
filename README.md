@@ -1,16 +1,86 @@
 # dotfiles
 
-Personal macOS iTerm2 configuration — zsh, Starship prompt, Vim, and a set of CLI tools tuned for a fast, visual workflow. Adjust as needed.
+Personal macOS configuration: **zsh**, **Starship**, **Neovim** (lazy.nvim), and legacy **Vim**, tuned for a fast, keyboard-driven workflow.
 
 ## Contents
 
-| File | Purpose |
+| Path | Purpose |
 |------|---------|
-| `.zshrc` | Zsh config — aliases, fzf, zoxide, autosuggestions |
-| `starship.toml` | Starship prompt — Gruvbox Dark, segmented powerline style |
-| `.vim/vimrc` | Vim config — Tomorrow-Night theme, Pathogen, lightline |
+| [`.zshrc`](.zshrc) | Zsh: aliases, git helper functions, fzf, zoxide, autosuggestions |
+| [`starship.toml`](starship.toml) | Starship prompt: Gruvbox Dark, powerline segments |
+| [`nvim/`](nvim) | Neovim config: lazy.nvim, LSP, Telescope, Harpoon, Treesitter |
+| [`.vim/`](.vim) | Legacy Vim config: Tomorrow-Night, Pathogen, lightline |
+| [`setup.sh`](setup.sh) | Symlinks the configs into place |
 
-## Prompt — Starship
+## Installation
+
+```sh
+git clone https://github.com/helbow/dotfiles.git ~/gitrep/dotfiles
+cd ~/gitrep/dotfiles
+./setup.sh
+```
+
+`setup.sh` symlinks (`ln -sn`, existing targets are left untouched):
+
+| Source | Target |
+|--------|--------|
+| `.vim` | `~/.vim` |
+| `.vimrc` | `~/.vimrc` |
+| `.zshrc` | `~/.zshrc` |
+| `starship.toml` | `~/.config/starship.toml` |
+| `nvim` | `~/.config/nvim` |
+
+> [!NOTE]
+> The repo keeps the Vim config at `.vim/vimrc`, but `setup.sh` links `.vimrc` from the repo root. Link it manually if needed: `ln -sf ~/gitrep/dotfiles/.vim/vimrc ~/.vimrc`
+
+### Prerequisites
+
+```sh
+brew install neovim starship eza fzf fd zoxide bat tree ripgrep
+brew install zsh-autosuggestions
+```
+
+- A [Nerd Font](https://www.nerdfonts.com/) is required for icons (eza, Starship, Neovim)
+- `ripgrep` is needed for Telescope live grep
+- `kubectl` is aliased as `k`; install it if used
+
+## Zsh
+
+### Aliases
+
+| Alias | Command |
+|-------|---------|
+| `vi` | `nvim` |
+| `ls` / `ll` / `tls` | `eza` variants with git status and icons (`tls` = latest modified) |
+| `k` | `kubectl` |
+| `bup` | Reload `~/.zshrc` |
+| `brup` | `brew update && upgrade --greedy && cleanup` |
+| `ftcp` | Browse listening TCP connections with fzf |
+| `zedit` | `zoxide edit` |
+| `zshpro` | Open `.zshrc` in nvim |
+
+### Git functions
+
+| Function | Description |
+|----------|-------------|
+| `cshow` | Browse the commit graph with fzf; `Enter` opens the commit in `less` |
+| `gbr` | Fuzzy checkout of a local or remote branch |
+| `bgrep <pattern>` | `git grep` across all local and remote branches |
+
+### fzf
+
+Dark theme matching the Starship palette. Driven by `fd` (includes hidden files, excludes `.git`).
+
+- `Ctrl+T`: insert a file path, previewed with `bat`
+- `Alt+C`: `cd` into a directory, previewed with `tree`
+
+### Other
+
+- **zoxide**: frecency-based `cd` replacement (`cd` is the zoxide command)
+- **zsh-autosuggestions**: ghost-text history suggestions
+- `autocd` enabled; `Home`/`End` and `Shift+←/→` word navigation bound
+
+## Prompt: Starship
 
 Powerline-style segments using the **Gruvbox Dark** palette:
 
@@ -24,44 +94,74 @@ Powerline-style segments using the **Gruvbox Dark** palette:
 - Time (`HH:MM`) in the rightmost segment
 - Success/error indicator on the prompt character; distinct Vim mode symbols
 
-## Shell — Zsh
+## Neovim
 
-### fzf
+Plugins are managed by [lazy.nvim](https://github.com/folke/lazy.nvim), which bootstraps itself on first launch. Versions are pinned in `lazy-lock.json`.
 
-Dark theme matching the Starship palette. Key bindings:
-
-- `Ctrl+T` — fuzzy insert a file path; preview with `bat`
-- `Alt+C` — fuzzy `cd` into a directory; preview with `tree`
-- Driven by `fd` (respects `.gitignore`, includes hidden files, excludes `.git`)
-
-### Other tools
-
-- **zoxide** — smarter `cd` with frecency tracking, aliased as `cd`
-- **zsh-autosuggestions** — ghost-text history suggestions
-
-## Vim
-
-- **Theme** — Tomorrow-Night
-- **Plugins** — Pathogen (plugin loader), lightline (status bar)
-- **Tab size** — 2 spaces, expandtab
-- **Column guide** — 90 characters
-- Relative line numbers, syntax highlighting, smart indent
-
-## Prerequisites
-
-```sh
-brew install starship eza fzf fd zoxide bat tree
-brew install zsh-autosuggestions
+```
+nvim/
+├── init.lua
+└── lua/
+    ├── config/   # options, keybinds, lazy bootstrap
+    └── plugins/  # one spec per plugin
 ```
 
-Vim plugins are managed with Pathogen and included as submodules under `.vim/bundle/`.
+### Plugins
 
-## Installation
+| Plugin | Purpose |
+|--------|---------|
+| [tokyonight](https://github.com/folke/tokyonight.nvim) | Colorscheme |
+| [lualine](https://github.com/nvim-lualine/lualine.nvim) | Status line |
+| [neo-tree](https://github.com/nvim-neo-tree/neo-tree.nvim) | File explorer |
+| [telescope](https://github.com/nvim-telescope/telescope.nvim) | Fuzzy finder |
+| [harpoon](https://github.com/ThePrimeagen/harpoon) | Quick file switching |
+| [gitsigns](https://github.com/lewis6991/gitsigns.nvim) | Git gutter signs |
+| [vim-fugitive](https://github.com/tpope/vim-fugitive) | Git commands |
+| [treesitter](https://github.com/nvim-treesitter/nvim-treesitter) | Syntax highlighting and indent |
+| [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) + [mason](https://github.com/williamboman/mason.nvim) | LSP and tool installation |
+| [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) + [LuaSnip](https://github.com/L3MON4D3/LuaSnip) | Completion and snippets |
+| [nvim-colorizer](https://github.com/NvChad/nvim-colorizer.lua) | Inline color previews |
+| [nvim-osc52](https://github.com/ojroques/nvim-osc52) | Clipboard over SSH |
 
-```sh
-git clone https://github.com/helbow/dotfiles.git ~/dotfiles
-ln -sf ~/dotfiles/.zshrc ~/.zshrc
-ln -sf ~/dotfiles/starship.toml ~/.config/starship.toml
-ln -sf ~/dotfiles/.vim ~/.vim
-ln -sf ~/dotfiles/.vim/vimrc ~/.vimrc
-```
+### LSP and tooling
+
+Installed automatically via Mason:
+
+- **Language servers**: Lua, Bash, Docker, Docker Compose, GitLab CI, Helm, Terraform, Vim, YAML, Markdown
+- **Linters/formatters**: ansible-lint, hadolint, kube-linter, luacheck, markdownlint, mdformat, shellcheck, shellharden, shfmt, yamlfmt, yamllint, jq, gitleaks, gitlint
+
+### Options
+
+- Absolute and relative line numbers, no line wrap, cursorline, `scrolloff=10`
+- 2-space indent, `expandtab`, smart indent
+- Smart-case search
+- Splits open below and right
+- Mode hidden (shown in lualine)
+
+### Keybindings
+
+Leader is `Space`.
+
+| Key | Action |
+|-----|--------|
+| `<leader>e` | Toggle file explorer |
+| `<leader>ff` / `fg` / `fb` / `fh` | Telescope: files / live grep / buffers / help |
+| `<leader>a` | Harpoon: add file |
+| `Ctrl+e` | Harpoon: quick menu |
+| `<leader>cd` | Open netrw (`:Ex`) |
+| `<leader>hl` | Toggle search highlight |
+| `<leader>sv` / `sh` | Vertical / horizontal split |
+| `Ctrl+h/j/k/l` | Move between windows |
+| `Alt+←/→/↑/↓` | Resize window |
+| `J` / `K` | Move line (or selection) down / up |
+| `<` / `>` (visual) | Indent and keep selection |
+| `j` / `k` | Wrap-aware movement |
+| `n` / `N`, `Ctrl+d` / `Ctrl+u` | Search and half-page scroll, cursor centered |
+| `Tab` / `Shift+Tab` | Completion: next / previous item |
+
+## Vim (legacy)
+
+- **Theme**: Tomorrow-Night
+- **Plugins**: Pathogen (loader), lightline (status bar)
+- 2-space tabs (`expandtab`), 90-column guide, mouse enabled
+- Line numbers, syntax highlighting, smart indent
