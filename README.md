@@ -33,12 +33,13 @@ cd ~/dotfiles
 ### Prerequisites
 
 ```sh
-brew install neovim starship eza fzf fd zoxide bat tree ripgrep
+brew install neovim tree-sitter-cli starship eza fzf fd zoxide bat tree ripgrep
 brew install zsh-autosuggestions
 ```
 
 - A [Nerd Font](https://www.nerdfonts.com/) is required for icons (eza, Starship, Neovim)
 - `ripgrep` is needed for Telescope live grep
+- Neovim 0.12+, `tree-sitter-cli` and a C compiler are required by nvim-treesitter (`main` branch)
 - `kubectl` is aliased as `k`; install it if used
 
 ## Zsh
@@ -115,7 +116,7 @@ nvim/
 | [gitsigns](https://github.com/lewis6991/gitsigns.nvim) | Git gutter signs |
 | [vim-fugitive](https://github.com/tpope/vim-fugitive) | Git commands |
 | [treesitter](https://github.com/nvim-treesitter/nvim-treesitter) | Syntax highlighting and indent |
-| [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) + [mason](https://github.com/williamboman/mason.nvim) | LSP and tool installation |
+| [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) + [mason](https://github.com/mason-org/mason.nvim) | LSP and tool installation |
 | [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) + [LuaSnip](https://github.com/L3MON4D3/LuaSnip) | Completion and snippets |
 | [nvim-colorizer](https://github.com/NvChad/nvim-colorizer.lua) | Inline color previews |
 | [nvim-osc52](https://github.com/ojroques/nvim-osc52) | Clipboard over SSH |
