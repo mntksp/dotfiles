@@ -146,6 +146,7 @@ Leader is `Space`.
 | `<leader>ff` / `fg` / `fb` / `fh` | Telescope: files / live grep / buffers / help |
 | `<leader>a` | Harpoon: add file |
 | `Ctrl+e` | Harpoon: quick menu |
+| `<leader>d` | Toggle inline diagnostic messages |
 | `<leader>cd` | Open netrw (`:Ex`) |
 | `<leader>hl` | Toggle search highlight |
 | `<leader>sv` / `sh` | Vertical / horizontal split |

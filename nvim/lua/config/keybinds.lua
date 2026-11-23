@@ -28,6 +28,13 @@ vim.keymap.set("v", "<", "<gv", { desc = "Indent left and reselect"})
 vim.keymap.set("v", ">", ">gv", { desc = "Indent right and reselect"})
 
 
+local diagnostic_text = true
+vim.diagnostic.config({ virtual_text = diagnostic_text })
+vim.keymap.set("n", "<leader>d", function()
+  diagnostic_text = not diagnostic_text
+  vim.diagnostic.config({ virtual_text = diagnostic_text })
+end, { desc = "Toggle inline diagnostic messages" })
+
 vim.keymap.set("n", "<leader>cd", vim.cmd.Ex)
 vim.keymap.set("n", "<leader>hl", function() vim.o.hlsearch = not vim.o.hlsearch end)
 
