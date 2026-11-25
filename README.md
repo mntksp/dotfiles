@@ -112,6 +112,7 @@ nvim/
 | [lualine](https://github.com/nvim-lualine/lualine.nvim) | Status line |
 | [neo-tree](https://github.com/nvim-neo-tree/neo-tree.nvim) | File explorer |
 | [telescope](https://github.com/nvim-telescope/telescope.nvim) | Fuzzy finder |
+| [which-key](https://github.com/folke/which-key.nvim) | Popup showing available keybinds |
 | [harpoon](https://github.com/ThePrimeagen/harpoon) | Quick file switching |
 | [gitsigns](https://github.com/lewis6991/gitsigns.nvim) | Git gutter signs |
 | [vim-fugitive](https://github.com/tpope/vim-fugitive) | Git commands |
